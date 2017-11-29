@@ -26,7 +26,6 @@ def main():
         screen.screen.fill((255,255,255))
         load_jumpman(screen, jumpman, jumpman_x, jumpman_y)
         handle_block(screen, block)
-        print(block.get_x())
         pygame.display.update()
 
 def load_jumpman(screen, jumpman, x,y):
