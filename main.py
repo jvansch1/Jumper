@@ -2,6 +2,7 @@ import sys, pygame
 from screen import Screen
 from jumpman import Jumpman
 from block import Block
+from score import Score
 
 def main():
     pygame.init()
@@ -12,6 +13,8 @@ def main():
     block = Block(screen, 50, 50)
     jumpman_x = 50
     jumpman_y = 200
+    score = Score(0, screen)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
@@ -24,8 +27,9 @@ def main():
                     jumpman_y = jumpman_y - 10
 
         screen.screen.fill((255,255,255))
+        score.render()
         load_jumpman(screen, jumpman, jumpman_x, jumpman_y)
-        handle_block(screen, block)
+        handle_block(screen, block, score)
         pygame.display.update()
 
 def load_jumpman(screen, jumpman, x,y):
@@ -33,11 +37,13 @@ def load_jumpman(screen, jumpman, x,y):
     jumpman.update_y(y)
     jumpman.display()
 
-def handle_block(screen, block):
+def handle_block(screen, block, score):
     if block and block.get_x() <= 0:
         block.reset_position()
         block.draw()
+        score.increment_score()
     else:
         block.draw()
+
 
 main()
